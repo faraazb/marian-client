@@ -64,10 +64,16 @@ type userDetails = {
     password: string | null,
 }
 
+// interface signupState {
+//     data: userDetails | undefined;
+//     loginStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
+//     error: string | undefined
+// }
+
 export const signupUser = createAsyncThunk(
     'user/signupUser',
     async (user: userDetails) => {
-        const response = await axios.post('http://localhost:8000/accounts/login/', {
+        const response = await axios.post('http://localhost:8000/accounts/signup/', {
             first_name: user.firstname,
             last_name: user.lastname,
             phone_number: user.phoneNumber,
@@ -94,26 +100,29 @@ export const userSlice = createSlice({
         // }));
         builder.addCase(fetchUser.fulfilled, ((state,
                                              action) => {
-            state.loginStatus = 'succeeded'
+            state.loginStatus = 'succeeded';
+            state.data = action.payload;
+            // @ts-ignore - Will never execute this if token is not present
+            state.data.token = localStorage.getItem('token');
         }));
         builder.addCase(fetchUser.rejected, ((state,
                                              action) => {
-            state.loginStatus = 'failed'
+            state.loginStatus = 'failed';
         }));
         builder.addCase(loginUser.pending, ((state,
                                              action) => {
-            state.loginStatus = 'pending'
+            state.loginStatus = 'pending';
         }));
-        builder.addCase(loginUser.fulfilled, ((state,
+        builder.addCase(loginUser.fulfilled || signupUser.fulfilled, ((state,
                                              action) => {
             // console.log("succeeded from slice")
-            state.loginStatus = 'succeeded'
-            state.data = action.payload
+            state.loginStatus = 'succeeded';
+            state.data = action.payload;
         }));
-        builder.addCase(loginUser.rejected, ((state,
+        builder.addCase(loginUser.rejected || signupUser.rejected, ((state,
                                              action) => {
             // console.log("reject from slice")
-            state.loginStatus = 'failed'
+            state.loginStatus = 'failed';
             state.error = action.error.message;
         }));
     }

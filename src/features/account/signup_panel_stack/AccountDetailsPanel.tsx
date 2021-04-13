@@ -1,5 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Button, FormGroup, InputGroup, Intent, PanelProps} from "@blueprintjs/core";
+import {useDispatch, useSelector} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {selectUser, selectUserLoginError, selectUserLoginStatus, signupUser} from "../userSlice";
+import {SignupToast} from "../Toast";
+import {sign} from "node:crypto";
 
 
 interface AccountDetailsInfo {
@@ -10,6 +15,11 @@ interface AccountDetailsInfo {
 }
 
 export const AccountDetailsPanel: React.FC<PanelProps<AccountDetailsInfo>> = props => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const signupStatus = useSelector(selectUserLoginStatus);
+    const signupError = useSelector(selectUserLoginError);
+    const user = useSelector(selectUser);
     const [username, setUsername] = useState<string | null>(null);
     const [usernameHelper, setUsernameHelper] = useState("Think of a username for yourself")
     const [passwordHelper, setPasswordHelper] = useState("Be Sharp! We haven't spent much " +
@@ -19,6 +29,16 @@ export const AccountDetailsPanel: React.FC<PanelProps<AccountDetailsInfo>> = pro
     const [passwordFieldType, setPasswordFieldType] = useState("password");
     const [passwordFieldIntent, setPasswordFieldIntent] = useState<Intent>(Intent.PRIMARY)
     const [eye, setEye] = useState<string>("eye-open");
+
+    const signupPayload = {
+        firstname: props.firstname,
+        lastname: props.lastname,
+        phoneNumber: props.phoneNumber,
+        email: props.email,
+        username: username,
+        password: password,
+    }
+
 
 
     // @ts-ignore
@@ -70,10 +90,32 @@ export const AccountDetailsPanel: React.FC<PanelProps<AccountDetailsInfo>> = pro
     }, [username, password, confirmPass]);
 
     const formSubmit = (event: { preventDefault: () => void; }) => {
-        console.log("Signing up: Stage 1")
+        console.log("Signing up: Stage 1");
         event.preventDefault();
+        console.log("Final Validation");
         validateForm();
+        console.log("Signing up: Stage 2");
+        dispatch(signupUser(signupPayload));
     }
+
+    useEffect(() => {
+        if (signupStatus === "succeeded") {
+            console.log("Signup successful");
+            if (user !== undefined) {
+                SignupToast.show({message: "Thanks for joining! Please log in now",
+                    intent: Intent.SUCCESS});
+                localStorage.setItem("token", user.token);
+                history.push("/");
+            }
+        }
+        else if (signupStatus === "failed") {
+            SignupToast.show({message: "Sign up unsuccessful! Try again",
+                intent: Intent.DANGER});
+            SignupToast.show({message: signupError,
+                intent: Intent.DANGER});
+            history.push("/signup");
+        }
+    },[signupStatus, dispatch]);
 
     return (
         <div>

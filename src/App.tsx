@@ -2,6 +2,7 @@ import React from 'react';
 // import './App.css';
 import {LoginForm} from "./features/account/Login";
 import {SignupForm} from "./features/account/signup_panel_stack/Signup";
+import {Home} from "./features/home/Home";
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +17,10 @@ function App() {
                 <SignupForm />
             </Route>
             <Route path="/login">
-              <LoginForm />
+                <LoginForm />
+            </Route>
+            <Route path="/">
+                <Home />
             </Route>
         </Switch>
       </Router>
