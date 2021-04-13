@@ -1,0 +1,52 @@
+.container {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    min-height: 100vh;
+}
+.card-content {
+    /*min-width: 600px;*/
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    min-height: 50vh;
+}
+.form-container {
+    width: 50vw;
+}
+
+.panel {
+    width: 600px;
+    min-height: 70vh;
+}
+
+.panel-content {
+    /*margin-left: 10px;*/
+    /*width: 300px;*/
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;
+    /*margin-top: 15px;*/
+    min-height: 70vh;
+}
+
+.panel-item {
+    width: 300px;
+}
+
+
+.header {
+    width: 300px;
+    /*align-self: baseline;*/
+    font-size: 25pt;
+    font-family: Rubik, Roboto;
+    /*margin-bottom: 20px;*/
+}
+
+.back-button {
+    position: fixed;
+    padding-bottom: -10px;
+}

@@ -1,0 +1,35 @@
+.login-container {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    min-height: 100vh;
+}
+
+.login-card-content {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    /*min-height: 100vh;*/
+}
+
+.login-header {
+    font-size: 25pt;
+    font-family: Rubik, Roboto;
+    margin-bottom: 20px;
+}
+
+.login-form-container {
+    width: 300px;
+}
+
+.login-form-item {
+    width: 300px;
+}
+
+.login-form-submit-button {
+    /*min-width: 300px;*/
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
