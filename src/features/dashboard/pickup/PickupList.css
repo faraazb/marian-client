@@ -1,0 +1,32 @@
+.pickup-list {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    /*box-shadow: 5px 0 5px -5px #333;*/
+    /*background-color: rebeccapurple;*/
+}
+
+
+.pickup-header {
+    color: aliceblue;
+    /*position: fixed;*/
+    padding-left: 40px;
+    background-color: #488b3b;
+    flex: 0 0 100%;
+    overflow: hidden;
+    /*margin-left: 20px;*/
+}
+
+.pickup-list-container {
+    /*padding: 10px 10px 10px 10px;*/
+    /*padding-right: 9px;*/
+    /*padding-top: 10px;*/
+    margin: 10px 10px 10px 10px;
+    /*min-height: 100vh;*/
+    /*overflow: auto;*/
+    /*position: absolute;*/
+}
+
+.pickup-card-container {
+    padding: 6px 0 6px 0;
+}

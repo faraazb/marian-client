@@ -27,3 +27,9 @@ yarn-error.log*
 src/features/counter/
 /src/features/account/PanelStack2.css
 /src/features/account/PanelStack2Example.tsx
+
+.env
+
+src/features/dashboard/pickup/PickupMap.tsx
+
+src/features/dashboard/pickup/PickupDashboardBackup.css

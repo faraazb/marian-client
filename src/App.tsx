@@ -8,11 +8,15 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import {PickupDashboard} from "./features/dashboard/pickup/PickupDashboard";
 
 function App() {
   return (
       <Router>
         <Switch>
+            <Route path="/pickups">
+                <PickupDashboard />
+            </Route>
             <Route path="/signup">
                 <SignupForm />
             </Route>

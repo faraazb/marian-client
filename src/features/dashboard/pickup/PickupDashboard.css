@@ -1,0 +1,27 @@
+.pickup-dashboard {
+    display: flex;
+    flex: 1;
+    height: 100vh;
+}
+
+.pickup-dashboard-list {
+    display: flex;
+    flex-direction: column;
+    min-width: 30vw;
+    min-height: 100vh;
+    flex-grow: 1;
+    flex-basis: 300px;
+    position: sticky;
+    overflow: auto;
+    box-shadow: 5px 0 5px -5px #333;
+    z-index: 1;
+}
+
+.pickup-dashboard-map {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-height: 100vh;
+    display: flex;
+    overflow: auto;
+}
+
