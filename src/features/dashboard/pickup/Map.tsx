@@ -1,7 +1,8 @@
 import * as React from 'react';
-import ReactMapGL, {Marker, NavigationControl} from 'react-map-gl';
+import MapGL, {MapContext, Marker, NavigationControl} from 'react-map-gl';
 import "./Map.css"
 import icon from "./pickup-icon.png"
+import {Pickup} from "./pickupSlice";
 
 const maxBounds = {
     minLongitude: 72.9774635,
@@ -27,7 +28,23 @@ const initialState = {
 type State = typeof initialState;
 type Viewport = typeof initialState.viewport;
 
-export default class Map extends React.Component<{}, State> {
+interface IPickupMapProp {
+    pickups: Pickup[];
+}
+
+
+// const MapContext = React.createContext([undefined, () => {}]);
+// const MapProvider = (props: { children: React.ReactNode; }) => {
+//     const [mapInstance, setMapInstance] = React.useState();
+//
+//     return (
+//         <MapContext.Provider value={[mapInstance, setMapInstance]}>
+//             {props.children}
+//         </MapContext.Provider>
+//     );
+// };
+
+export default class Map extends React.Component<IPickupMapProp, State> {
     public state: State = initialState;
 
     public componentDidMount() {
@@ -74,7 +91,7 @@ export default class Map extends React.Component<{}, State> {
     public render() {
         const { viewport } = this.state;
         return (
-            <ReactMapGL
+            <MapGL
                 {...viewport}
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 onViewportChange={(v: Viewport) => this.updateViewport(v)}
@@ -84,12 +101,16 @@ export default class Map extends React.Component<{}, State> {
                 <div className="map-navigation-controls">
                     <NavigationControl onViewportChange={this.updateViewport} />
                 </div>
-                <Marker longitude={72.830575} latitude={19.3757727}>
-                    <div style={{ cursor: 'pointer', transform: `translate(${-50 / 2}px,${-50}px)` }}>
-                        <img src={icon} height={50}/>
-                    </div>
-                </Marker>
-            </ReactMapGL>
+                {this.props.pickups.map((pickup) => {
+                    return (
+                        <Marker longitude={pickup.coordinates[0]} latitude={pickup.coordinates[1]}>
+                            <div style={{ cursor: 'pointer', transform: `translate(${-50 / 2}px,${-50}px)` }}>
+                                <img alt={"fork-marker"} src={icon} height={50}/>
+                            </div>
+                        </Marker>
+                    )
+                })}
+            </MapGL>
         );
     }
 }

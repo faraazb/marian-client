@@ -2,8 +2,14 @@ import React, {useEffect, useState} from "react";
 import {Button, FormGroup, InputGroup, Intent, PanelProps} from "@blueprintjs/core";
 import {useDispatch, useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
-import {selectUser, selectUserLoginError, selectUserLoginStatus, signupUser} from "../userSlice";
-import {SignupToast} from "../Toast";
+import {
+    selectUser,
+    selectUserLoginError,
+    selectUserLoginStatus, selectUserSignupError,
+    selectUserSignupStatus,
+    signupUser
+} from "../userSlice";
+import {SignupToast} from "../../Toast";
 
 
 interface AccountDetailsInfo {
@@ -16,8 +22,8 @@ interface AccountDetailsInfo {
 export const AccountDetailsPanel: React.FC<PanelProps<AccountDetailsInfo>> = props => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const signupStatus = useSelector(selectUserLoginStatus);
-    const signupError = useSelector(selectUserLoginError);
+    const signupStatus = useSelector(selectUserSignupStatus);
+    const signupError = useSelector(selectUserSignupError);
     const user = useSelector(selectUser);
     const [username, setUsername] = useState<string | null>(null);
     const [usernameHelper, setUsernameHelper] = useState("Think of a username for yourself")
@@ -101,7 +107,7 @@ export const AccountDetailsPanel: React.FC<PanelProps<AccountDetailsInfo>> = pro
         if (signupStatus === "succeeded") {
             console.log("Signup successful");
             if (user !== undefined) {
-                SignupToast.show({message: "Thanks for joining! Please log in now",
+                SignupToast.show({message: "Thanks for joining! You are logged in",
                     intent: Intent.SUCCESS});
                 localStorage.setItem("token", user.token);
                 history.push("/");

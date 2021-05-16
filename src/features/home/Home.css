@@ -1,0 +1,60 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #e3e3e3;
+}
+
+.home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*min-height: 100vh;*/
+}
+
+.home-item {
+    width: 300px;
+}
+
+.home-top-navigation {
+    /*align-self: flex-start;*/
+    position: absolute;
+    top: 30px;
+}
+
+.home-title {
+    text-align: center;
+    line-height: 200%;
+    font-size: 25pt;
+    font-family: Rubik, Roboto;
+    margin-bottom: 10px;
+}
+
+.home-description {
+    text-align: center;
+    max-width:300px;
+    font-size: 12pt;
+    font-family: Rubik, Roboto;
+    margin-bottom: 20px;
+}
+
+.home-feed-someone {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    line-height: 100%;
+    font-size: 18pt;
+    font-family: Rubik, Roboto;
+}
+
+.home-logout {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+.home-logout-button {
+    margin-left: 10px;
+}

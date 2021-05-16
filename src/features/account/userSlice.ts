@@ -14,13 +14,17 @@ interface User {
 interface userState {
     data: User | undefined;
     loginStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
+    signupStatus: 'idle' | 'pending' | 'succeeded' | 'failed';
     error: string | undefined
+    signupError: string | undefined
 }
 
 const initialState: userState = {
     data: undefined,
     loginStatus: 'idle',
     error: undefined,
+    signupStatus: 'idle',
+    signupError: undefined
 };
 
 export const loginUser = createAsyncThunk(
@@ -113,17 +117,29 @@ export const userSlice = createSlice({
                                              action) => {
             state.loginStatus = 'pending';
         }));
-        builder.addCase(loginUser.fulfilled || signupUser.fulfilled, ((state,
+        builder.addCase(loginUser.fulfilled, ((state,
                                              action) => {
             // console.log("succeeded from slice")
             state.loginStatus = 'succeeded';
             state.data = action.payload;
         }));
-        builder.addCase(loginUser.rejected || signupUser.rejected, ((state,
+        builder.addCase(loginUser.rejected, ((state,
                                              action) => {
             // console.log("reject from slice")
             state.loginStatus = 'failed';
             state.error = action.error.message;
+        }));
+        builder.addCase(signupUser.fulfilled, ((state,
+                                              action) => {
+            // console.log("reject from slice")
+            state.signupStatus = 'succeeded';
+            state.data = action.payload;
+        }));
+        builder.addCase(signupUser.rejected, ((state,
+                                              action) => {
+            // console.log("reject from slice")
+            state.signupStatus = 'failed';
+            state.signupError = action.error.message;
         }));
     }
 });
@@ -138,5 +154,7 @@ export const userSlice = createSlice({
 export const selectUser = (state: RootState) => state.user.data;
 export const selectUserLoginStatus = (state: RootState) => state.user.loginStatus;
 export const selectUserLoginError = (state: RootState) => state.user.error;
+export const selectUserSignupStatus = (state: RootState) => state.user.signupStatus;
+export const selectUserSignupError = (state: RootState) => state.user.signupError;
 
 export default userSlice.reducer;

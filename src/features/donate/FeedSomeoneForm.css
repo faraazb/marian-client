@@ -1,0 +1,44 @@
+.feed-someone-container {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    min-height: 100vh;
+}
+
+.feed-someone-card-content {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;     /* center items horizontally, in this case */
+    min-height: 80vh;
+    min-width: 60vw;
+}
+
+.feed-someone-header {
+    font-size: 25pt;
+    font-family: Rubik, Roboto;
+    margin-bottom: 20px;
+}
+
+.feed-someone-form-container {
+    width: 300px;
+}
+
+.feed-someone-form-item {
+    width: 300px;
+}
+
+.feed-someone-form-address {
+    min-width: 300px;
+}
+
+.feed-someone-form-submit-button {
+    /*min-width: 300px;*/
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.toast-pickup-request {
+    z-index: 1;
+}

@@ -6,7 +6,7 @@ import {Button, Card, Checkbox, Elevation, FormGroup, Icon, InputGroup, Intent} 
 import {Link, useHistory} from "react-router-dom";
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "./Login.css"
-import {LoginSuccessfulToast} from "./Toast";
+import {LoginSuccessfulToast} from "../Toast";
 
 export interface loginState {
     username: string;
@@ -47,7 +47,7 @@ export function LoginForm() {
                 if (rememberMe) {
                     localStorage.setItem("token", user.token);
                 }
-                history.push("/")
+                history.push("/");
             }
         }
         else if (loginStatus === 'failed') {
@@ -95,6 +95,10 @@ export function LoginForm() {
     const handleRememberMeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRememberMe(event.target.checked);
     }
+    window.addEventListener('popstate', () => {
+        // history.push("/")
+        history.push(document.referrer);
+    })
 
 
     return (
@@ -152,6 +156,7 @@ export function LoginForm() {
                         </FormGroup>
                     </div>
                     <Link to="/signup">New? Join us!</Link>
+                    <Link to="/">Home</Link>
                 </div>
             </Card>
         </div>
